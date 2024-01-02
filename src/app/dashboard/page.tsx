@@ -43,23 +43,7 @@ export default async function DashboardPage() {
   const tasks = await getTasks();
   return (
     <>
-      <div className="md:hidden">
-        <Image
-          src="/examples/dashboard-light.png"
-          width={1280}
-          height={866}
-          alt="Dashboard"
-          className="block dark:hidden"
-        />
-        <Image
-          src="/examples/dashboard-dark.png"
-          width={1280}
-          height={866}
-          alt="Dashboard"
-          className="hidden dark:block"
-        />
-      </div>
-      <div className="hidden flex-col md:flex">
+      <div className="flex-col md:flex">
         <div className="border-b">
           <div className="flex h-16 items-center px-4">
             <MainNav />
@@ -72,6 +56,9 @@ export default async function DashboardPage() {
         <div className="flex-1 space-y-4 p-8 pt-6">
           <div className="flex items-center justify-between space-y-2">
             <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
+            <div className="flex items-center space-x-2">
+              <Button>New Memo</Button>
+            </div>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
             <Card>
@@ -152,8 +139,8 @@ export default async function DashboardPage() {
               </CardContent>
             </Card>
           </div>
-          <div className="grid gap-4 md:grid-cols-4 ">
-            <Card className="col-span-3">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 ">
+            <Card className="col-span-1 md:col-span-2 lg:col-span-3">
               <CardHeader>
                 <CardTitle>Your Memos</CardTitle>
               </CardHeader>
@@ -161,7 +148,7 @@ export default async function DashboardPage() {
                 <DataTable data={tasks} columns={columns} />
               </CardContent>
             </Card>
-            <Card className="col-span-1">
+            <Card className="col-span-1 md:col-span-1">
               <CardHeader>
                 <CardTitle>Memos For Your Review</CardTitle>
                 <CardDescription>You have 2 outstanding memos.</CardDescription>
