@@ -21,6 +21,7 @@ import { UserNav } from "./components/user-nav";
 import { taskSchema } from "./data/schema";
 import { DataTable } from "./components/data-table";
 import { columns } from "./components/columns";
+import Footer from "./components/footer";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -171,6 +172,7 @@ export default async function DashboardPage() {
             </Card>
           </div>
         </div>
+        <Footer />
       </div>
     </>
   );
