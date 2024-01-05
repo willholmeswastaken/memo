@@ -6,6 +6,23 @@ import { UserNav } from "../../dashboard/components/user-nav";
 import Footer from "../../dashboard/components/footer";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -20,7 +37,6 @@ export default async function NewMemoPage() {
           <div className="flex h-16 items-center px-4">
             <MainNav />
             <div className="ml-auto flex items-center space-x-4">
-              <Search />
               <UserNav />
             </div>
           </div>
@@ -52,6 +68,104 @@ export default async function NewMemoPage() {
                   </div>
                 </div>
               </div>
+            </TabsContent>
+            <TabsContent value="reviewers">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Share this document</CardTitle>
+                  <CardDescription>
+                    Enter the email of the desired reviewer and submit to send
+                    an email link.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex space-x-2">
+                    <Input value="joe@bloggs.net" type="email" readOnly />
+                    <Button className="shrink-0">Invite</Button>
+                  </div>
+                  <Separator className="my-4" />
+                  <div className="space-y-4">
+                    <h4 className="text-sm font-medium">People with access</h4>
+                    <div className="grid gap-6">
+                      <div className="flex items-center justify-between space-x-4">
+                        <div className="flex items-center space-x-4">
+                          <Avatar>
+                            <AvatarImage src="/avatars/03.png" />
+                            <AvatarFallback>OM</AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <p className="text-sm font-medium leading-none">
+                              Olivia Martin
+                            </p>
+                            <p className="text-sm text-muted-foreground">
+                              m@example.com
+                            </p>
+                          </div>
+                        </div>
+                        <Select defaultValue="edit">
+                          <SelectTrigger className="ml-auto w-[110px]">
+                            <SelectValue placeholder="Select" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="edit">Can edit</SelectItem>
+                            <SelectItem value="view">Can view</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="flex items-center justify-between space-x-4">
+                        <div className="flex items-center space-x-4">
+                          <Avatar>
+                            <AvatarImage src="/avatars/05.png" />
+                            <AvatarFallback>IN</AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <p className="text-sm font-medium leading-none">
+                              Isabella Nguyen
+                            </p>
+                            <p className="text-sm text-muted-foreground">
+                              b@example.com
+                            </p>
+                          </div>
+                        </div>
+                        <Select defaultValue="view">
+                          <SelectTrigger className="ml-auto w-[110px]">
+                            <SelectValue placeholder="Select" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="edit">Can edit</SelectItem>
+                            <SelectItem value="view">Can view</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="flex items-center justify-between space-x-4">
+                        <div className="flex items-center space-x-4">
+                          <Avatar>
+                            <AvatarImage src="/avatars/01.png" />
+                            <AvatarFallback>SD</AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <p className="text-sm font-medium leading-none">
+                              Sofia Davis
+                            </p>
+                            <p className="text-sm text-muted-foreground">
+                              p@example.com
+                            </p>
+                          </div>
+                        </div>
+                        <Select defaultValue="view">
+                          <SelectTrigger className="ml-auto w-[110px]">
+                            <SelectValue placeholder="Select" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="edit">Can edit</SelectItem>
+                            <SelectItem value="view">Can view</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </TabsContent>
           </Tabs>
         </div>
