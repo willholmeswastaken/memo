@@ -84,19 +84,19 @@ c94 -35 158 -122 158 -214 0 -169 -157 -284 -322 -235 -121 37 -194 197 -143
         </svg>
       </Link>
       <Link
-        href="/examples/dashboard"
+        href="/dashboard"
         className="text-sm font-medium transition-colors hover:text-primary"
       >
         Dashboard
       </Link>
       <Link
-        href="/examples/dashboard"
+        href="/memos"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
         Memos
       </Link>
       <Link
-        href="/examples/dashboard"
+        href="/settings"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
         Settings

@@ -1,11 +1,6 @@
 "use client";
 
-import { type Metadata } from "next";
 import { Editor } from "novel";
-import { MainNav } from "../../dashboard/components/main-nav";
-import { Search } from "../../dashboard/components/search";
-import { UserNav } from "../../dashboard/components/user-nav";
-import Footer from "../../dashboard/components/footer";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -37,14 +32,6 @@ export default function NewMemoPage() {
   return (
     <>
       <div className="flex-col md:flex">
-        <div className="border-b">
-          <div className="flex h-16 items-center px-4">
-            <MainNav />
-            <div className="ml-auto flex items-center space-x-4">
-              <UserNav />
-            </div>
-          </div>
-        </div>
         <div className="flex-1 space-y-4 p-8 pt-6">
           <div className="flex items-center justify-between space-y-2">
             <h2 className="text-3xl font-bold tracking-tight">New Memo</h2>
@@ -185,7 +172,6 @@ export default function NewMemoPage() {
             </TabsContent>
           </Tabs>
         </div>
-        <Footer />
       </div>
     </>
   );
