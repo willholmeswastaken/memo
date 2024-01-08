@@ -1,3 +1,5 @@
+"use client";
+
 import { type Metadata } from "next";
 import { Editor } from "novel";
 import { MainNav } from "../../dashboard/components/main-nav";
@@ -23,13 +25,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useToast } from "@/components/ui/use-toast";
 
-export const metadata: Metadata = {
-  title: "Dashboard",
-  description: "Example dashboard app built using the components.",
-};
+// export const metadata: Metadata = {
+//   title: "Dashboard",
+//   description: "Example dashboard app built using the components.",
+// };
 
-export default async function NewMemoPage() {
+export default function NewMemoPage() {
+  const { toast } = useToast();
   return (
     <>
       <div className="flex-col md:flex">
@@ -63,7 +67,17 @@ export default async function NewMemoPage() {
                     <Button variant="destructive">Abandon</Button>
                   </div>
                   <div className="flex flex-row justify-end gap-x-2">
-                    <Button variant="outline">Save as Draft</Button>
+                    <Button
+                      variant="outline"
+                      onClick={() =>
+                        toast({
+                          title: "Memo: Saved as Draft",
+                          description: "Your memo has been saved as a draft.",
+                        })
+                      }
+                    >
+                      Save as Draft
+                    </Button>
                     <Button>Publish</Button>
                   </div>
                 </div>
@@ -72,6 +86,8 @@ export default async function NewMemoPage() {
             <TabsContent value="reviewers">
               <Card>
                 <CardHeader>
+                  {/* We must do a check before reviewers land on the page to make sure their
+                    account email is on the reviewers list. If not, boot them out. */}
                   <CardTitle>Share this document</CardTitle>
                   <CardDescription>
                     Enter the email of the desired reviewer and submit to send
