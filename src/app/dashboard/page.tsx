@@ -15,6 +15,7 @@ import { RecentSales } from "./components/recent-sales";
 import { taskSchema } from "./data/schema";
 import { DataTable } from "./components/data-table";
 import { columns } from "./components/columns";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -41,7 +42,9 @@ export default async function DashboardPage() {
           <div className="flex items-center justify-between space-y-2">
             <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
             <div className="flex items-center space-x-2">
-              <Button>New Memo</Button>
+              <Link href="/memos/new">
+                <Button>New Memo</Button>
+              </Link>
             </div>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
