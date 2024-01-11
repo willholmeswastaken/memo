@@ -84,7 +84,7 @@ c94 -35 158 -122 158 -214 0 -169 -157 -284 -322 -235 -121 37 -194 197 -143
         </svg>
       </Link>
       <Link
-        href="/dashboard"
+        href="/app"
         className="text-sm font-medium transition-colors hover:text-primary"
       >
         Dashboard

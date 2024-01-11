@@ -11,11 +11,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { RecentSales } from "./components/recent-sales";
-import { taskSchema } from "./data/schema";
-import { DataTable } from "./components/data-table";
-import { columns } from "./components/columns";
+import { RecentSales } from "./dashboard/components/recent-sales";
+import { taskSchema } from "./dashboard/data/schema";
+import { DataTable } from "./dashboard/components/data-table";
+import { columns } from "./dashboard/components/columns";
 import Link from "next/link";
+import { ProtectedRoute } from "./components/protected";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
 
 async function getTasks() {
   const data = await fs.readFile(
-    path.join(process.cwd(), "src/app/dashboard/data/tasks.json"),
+    path.join(process.cwd(), "src/app/app/dashboard/data/tasks.json"),
   );
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -36,13 +37,13 @@ async function getTasks() {
 export default async function DashboardPage() {
   const tasks = await getTasks();
   return (
-    <>
+    <ProtectedRoute>
       <div className="flex-col md:flex">
         <div className="flex-1 space-y-4 p-8 pt-6">
           <div className="flex items-center justify-between space-y-2">
             <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
             <div className="flex items-center space-x-2">
-              <Link href="/memos/new">
+              <Link href="/app/memos/new">
                 <Button>New Memo</Button>
               </Link>
             </div>
@@ -147,6 +148,6 @@ export default async function DashboardPage() {
           </div>
         </div>
       </div>
-    </>
+    </ProtectedRoute>
   );
 }
