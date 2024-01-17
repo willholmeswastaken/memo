@@ -17,6 +17,17 @@ import { DataTable } from "./dashboard/components/data-table";
 import { columns } from "./dashboard/components/columns";
 import Link from "next/link";
 import { ProtectedRoute } from "./components/protected";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -43,9 +54,36 @@ export default async function DashboardPage() {
           <div className="flex items-center justify-between space-y-2">
             <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
             <div className="flex items-center space-x-2">
-              <Link href="/app/memos/new">
-                <Button>New Memo</Button>
-              </Link>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button>New Memo</Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                  <DialogHeader>
+                    <DialogTitle>Create Memo</DialogTitle>
+                    <DialogDescription>
+                      Tell us the name of your new memo and lets get started.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="grid gap-4 py-4">
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="name" className="text-right">
+                        Name
+                      </Label>
+                      <Input
+                        id="name"
+                        placeholder="My Memo"
+                        className="col-span-3"
+                      />
+                    </div>
+                  </div>
+                  <DialogFooter>
+                    <Link href="app/memos/new">
+                      <Button>Create</Button>
+                    </Link>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
             </div>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
