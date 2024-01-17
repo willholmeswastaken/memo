@@ -11,6 +11,7 @@ export async function ProtectedRoute({
 
   if (!(await isAuthenticated())) {
     redirect("/api/auth/login");
+    return <>Please login</>;
   }
 
   return <>{children}</>;

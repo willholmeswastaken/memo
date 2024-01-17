@@ -1,15 +1,29 @@
 import Link from "next/link";
-
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { cn } from "@/lib/utils";
 
-export function MainNav({
+export async function MainNav({
   className,
   ...props
 }: React.HTMLAttributes<HTMLElement>) {
+  const { isAuthenticated } = getKindeServerSession();
+  const isUserAuthenticated = await isAuthenticated();
+  const navLinks = isUserAuthenticated
+    ? [
+        {
+          label: "Dashboard",
+          href: "/app",
+        },
+        {
+          label: "Settings",
+          href: "/app/settings",
+        },
+      ]
+    : [];
   return (
     <nav className={cn("flex items-center space-x-4", className)} {...props}>
       <Link
-        href="/examples/dashboard"
+        href="/"
         className="text-sm font-medium transition-colors hover:text-primary"
       >
         <svg
@@ -83,12 +97,15 @@ c94 -35 158 -122 158 -214 0 -169 -157 -284 -322 -235 -121 37 -194 197 -143
           </g>
         </svg>
       </Link>
-      <Link
-        href="/app"
-        className="text-sm font-medium transition-colors hover:text-primary"
-      >
-        Dashboard
-      </Link>
+      {navLinks.map((navLink) => (
+        <Link
+          key={navLink.href}
+          href={navLink.href}
+          className="text-sm font-medium transition-colors hover:text-primary"
+        >
+          {navLink.label}
+        </Link>
+      ))}
     </nav>
   );
 }
