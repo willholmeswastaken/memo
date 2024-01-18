@@ -78,7 +78,7 @@ export default async function DashboardPage() {
                     </div>
                   </div>
                   <DialogFooter>
-                    <Link href="app/memos/new">
+                    <Link href="app/memos/new/edit">
                       <Button>Create</Button>
                     </Link>
                   </DialogFooter>
