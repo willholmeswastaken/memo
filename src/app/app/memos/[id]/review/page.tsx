@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { MarkdownRender } from "~/app/app/components/markdown-render";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
 
 export default async function ReviewMemoPage() {
   const content = "*testing*123";
@@ -127,6 +128,17 @@ export default async function ReviewMemoPage() {
                     </div>
                   </div>
                 </div>
+                <form className="grid gap-4">
+                  <div className="grid gap-1.5">
+                    <Label htmlFor="comment">Invite Reviewer</Label>
+                    <Input
+                      id="comment"
+                      placeholder="info@willholmes.dev"
+                      type="email"
+                    />
+                  </div>
+                  <Button type="submit">Send Invite</Button>
+                </form>
               </div>
             </TabsContent>
           </Tabs>
