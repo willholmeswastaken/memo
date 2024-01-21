@@ -21,6 +21,18 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
+import { Pencil1Icon, Pencil2Icon } from "@radix-ui/react-icons";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 // export const metadata: Metadata = {
 //   title: "Dashboard",
@@ -33,8 +45,11 @@ export default function NewMemoPage() {
     <>
       <div className="flex-col md:flex">
         <div className="flex-1 space-y-4 p-8 pt-6">
-          <div className="flex items-center justify-between space-y-2">
+          <div className="flex items-center space-x-2 space-y-1">
             <h2 className="text-3xl font-bold tracking-tight">New Memo</h2>
+            <Button variant="ghost">
+              <Pencil2Icon className="h-5 w-5" />
+            </Button>
           </div>
           <Tabs
             defaultValue="content"
@@ -51,19 +66,38 @@ export default function NewMemoPage() {
                 <Editor className="relative mb-6 min-h-[500px] w-full max-w-full rounded-lg border border-stone-200 bg-white shadow-md" />
                 <div className="flex w-full flex-1 flex-grow gap-x-2">
                   <div className="flex flex-1 justify-start">
-                    <Button variant="destructive">Abandon</Button>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button variant="destructive">Abandon</Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>
+                            Are you absolutely sure?
+                          </AlertDialogTitle>
+                          <AlertDialogDescription>
+                            This action cannot be undone and will permanently
+                            delete this memo.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction>Continue</AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </div>
                   <div className="flex flex-row justify-end gap-x-2">
                     <Button
                       variant="outline"
                       onClick={() =>
                         toast({
-                          title: "Memo: Saved as Draft",
+                          title: "Saved Changes!",
                           description: "Your memo has been saved as a draft.",
                         })
                       }
                     >
-                      Save as Draft
+                      Save Changes
                     </Button>
                     <Button>Publish</Button>
                   </div>
