@@ -67,11 +67,11 @@ export default async function DashboardPage() {
                   </DialogHeader>
                   <div className="grid gap-4 py-4">
                     <div className="grid grid-cols-4 items-center gap-4">
-                      <Label htmlFor="name" className="text-right">
+                      <Label htmlFor="memo-name" className="text-right">
                         Name
                       </Label>
                       <Input
-                        id="name"
+                        id="memo-name"
                         placeholder="My Memo"
                         className="col-span-3"
                       />

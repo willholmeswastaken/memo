@@ -23,9 +23,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`flex flex-col font-sans ${inter.variable}`}>
+      <body
+        className={`flex min-h-screen flex-col font-sans ${inter.variable}`}
+      >
         <Header />
-        <main className="flex flex-grow flex-col">{children}</main>
+        <main className="flex h-full flex-1 flex-grow flex-col">
+          {children}
+        </main>
         <Footer />
         <Toaster />
       </body>
