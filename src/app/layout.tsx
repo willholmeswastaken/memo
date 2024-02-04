@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import Header from "./app/components/header";
 import Footer from "./app/components/footer";
+import { ReactQueryClientProvider } from "~/components/ReactQueryClientProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,17 +23,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body
-        className={`flex min-h-screen flex-col font-sans ${inter.variable}`}
-      >
-        <Header />
-        <main className="flex h-full flex-1 flex-grow flex-col">
-          {children}
-        </main>
-        <Footer />
-        <Toaster />
-      </body>
-    </html>
+    <ReactQueryClientProvider>
+      <html lang="en">
+        <body
+          className={`flex min-h-screen flex-col font-sans ${inter.variable}`}
+        >
+          <Header />
+          <main className="flex h-full flex-1 flex-grow flex-col">
+            {children}
+          </main>
+          <Footer />
+          <Toaster />
+        </body>
+      </html>
+    </ReactQueryClientProvider>
   );
 }

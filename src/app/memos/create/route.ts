@@ -14,5 +14,5 @@ export async function POST(req: Request) {
     .values({ title, createdBy: session.user.id })
     .returning({ id: memos.id });
 
-  return Response.json({ id: memo[0]!.id });
+  return Response.json({ id: memo[0]!.id.toString() });
 }

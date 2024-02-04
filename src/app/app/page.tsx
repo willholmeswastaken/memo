@@ -14,6 +14,7 @@ import { db } from "~/server/db";
 import { getServerAuthSession } from "~/server/auth";
 import { eq } from "drizzle-orm";
 import { memos } from "~/server/db/schema";
+import { CreateMemoModal } from "./dashboard/components/create-memo-modal";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -33,6 +34,8 @@ async function getMemos() {
 }
 
 export default async function DashboardPage() {
+  // todo: integrate with prefetch ssr and react-query
+  // https://tanstack.com/query/v4/docs/framework/react/guides/ssr#using-initialdata-2
   const memoResults = await getMemos();
   return (
     <ProtectedRoute>
@@ -40,7 +43,9 @@ export default async function DashboardPage() {
         <div className="flex-1 space-y-4 p-8 pt-6">
           <div className="flex items-center justify-between space-y-2">
             <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
-            <div className="flex items-center space-x-2"></div>
+            <div className="flex items-center space-x-2">
+              <CreateMemoModal />
+            </div>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
             <Card>
