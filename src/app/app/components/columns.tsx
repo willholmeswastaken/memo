@@ -4,9 +4,9 @@ import { type ColumnDef } from "@tanstack/react-table";
 
 import { Checkbox } from "@/components/ui/checkbox";
 
-import { statuses } from "../data/data";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
+import { statuses } from "./data";
 
 export const columns: ColumnDef<{
   id: number;

@@ -6,15 +6,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { RecentSales } from "./dashboard/components/recent-sales";
-import { DataTable } from "./dashboard/components/data-table";
-import { columns } from "./dashboard/components/columns";
-import { ProtectedRoute } from "./components/protected";
+import { RecentSales } from "./components/recent-sales";
+import { DataTable } from "./components/data-table";
+import { columns } from "./components/columns";
+import { ProtectedRoute } from "../../../@/components/protected";
 import { db } from "~/server/db";
 import { getServerAuthSession } from "~/server/auth";
 import { eq } from "drizzle-orm";
 import { memos } from "~/server/db/schema";
-import { CreateMemoModal } from "./dashboard/components/create-memo-modal";
+import { CreateMemoModal } from "./components/create-memo-modal";
 
 export const metadata: Metadata = {
   title: "Dashboard",

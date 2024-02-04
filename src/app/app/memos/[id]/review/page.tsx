@@ -1,4 +1,4 @@
-import { ProtectedRoute } from "../../../components/protected";
+import { ProtectedRoute } from "../../../../../../@/components/protected";
 import { remark } from "remark";
 import html from "remark-html";
 
@@ -6,7 +6,7 @@ import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { MarkdownRender } from "~/app/app/components/markdown-render";
+import { MarkdownRender } from "@/components/markdown-render";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 
