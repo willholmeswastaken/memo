@@ -31,6 +31,6 @@ export const memos = pgTable(
     createdBy: varchar("createdBy"),
   },
   (memo) => ({
-    createdByIndex: index("createdBy").on(memo.title),
+    createdByIndex: index("createdBy").on(memo.createdBy),
   }),
 );
