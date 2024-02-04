@@ -1,9 +1,4 @@
 import { type Metadata } from "next";
-import { promises as fs } from "fs";
-import path from "path";
-import { z } from "zod";
-
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -12,79 +7,40 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { RecentSales } from "./dashboard/components/recent-sales";
-import { taskSchema } from "./dashboard/data/schema";
 import { DataTable } from "./dashboard/components/data-table";
 import { columns } from "./dashboard/components/columns";
-import Link from "next/link";
 import { ProtectedRoute } from "./components/protected";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { db } from "~/server/db";
+import { getServerAuthSession } from "~/server/auth";
+import { eq } from "drizzle-orm";
+import { memos } from "~/server/db/schema";
 
 export const metadata: Metadata = {
   title: "Dashboard",
   description: "Example dashboard app built using the components.",
 };
 
-async function getTasks() {
-  const data = await fs.readFile(
-    path.join(process.cwd(), "src/app/app/dashboard/data/tasks.json"),
-  );
-
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const tasks = JSON.parse(data.toString());
-
-  return z.array(taskSchema).parse(tasks);
+async function getMemos() {
+  const session = await getServerAuthSession();
+  if (!session) {
+    return [];
+  }
+  const memoResults = await db
+    .select()
+    .from(memos)
+    .where(eq(memos.createdBy, session.user.id));
+  return memoResults;
 }
 
 export default async function DashboardPage() {
-  const tasks = await getTasks();
+  const memoResults = await getMemos();
   return (
     <ProtectedRoute>
       <div className="flex-col md:flex">
         <div className="flex-1 space-y-4 p-8 pt-6">
           <div className="flex items-center justify-between space-y-2">
             <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
-            <div className="flex items-center space-x-2">
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button>New Memo</Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
-                  <DialogHeader>
-                    <DialogTitle>Create Memo</DialogTitle>
-                    <DialogDescription>
-                      Tell us the name of your new memo and lets get started.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="grid gap-4 py-4">
-                    <div className="grid grid-cols-4 items-center gap-4">
-                      <Label htmlFor="memo-name" className="text-right">
-                        Name
-                      </Label>
-                      <Input
-                        id="memo-name"
-                        placeholder="My Memo"
-                        className="col-span-3"
-                      />
-                    </div>
-                  </div>
-                  <DialogFooter>
-                    <Link href="app/memos/new/edit">
-                      <Button>Create</Button>
-                    </Link>
-                  </DialogFooter>
-                </DialogContent>
-              </Dialog>
-            </div>
+            <div className="flex items-center space-x-2"></div>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
             <Card>
@@ -171,7 +127,7 @@ export default async function DashboardPage() {
                 <CardTitle>Your Memos</CardTitle>
               </CardHeader>
               <CardContent className="">
-                <DataTable data={tasks} columns={columns} />
+                <DataTable data={memoResults} columns={columns} />
               </CardContent>
             </Card>
             <Card className="col-span-1 md:col-span-1">

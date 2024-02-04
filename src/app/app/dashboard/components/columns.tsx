@@ -9,7 +9,11 @@ import { type Task } from "../data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
 
-export const columns: ColumnDef<Task>[] = [
+export const columns: ColumnDef<{
+  id: number;
+  title: string;
+  status: string;
+}>[] = [
   {
     id: "select",
     header: ({ table }) => (

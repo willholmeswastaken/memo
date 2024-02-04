@@ -1,6 +1,6 @@
 import { MainNav } from "./main-nav";
 import { UserNav } from "./user-nav";
-import { getServerAuthSession } from "../lib/auth-options";
+import { getServerAuthSession } from "~/server/auth";
 import { SignIn } from "@/components/sign-in";
 
 export default async function Header() {

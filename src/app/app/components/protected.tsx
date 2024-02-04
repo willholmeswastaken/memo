@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import React from "react";
-import { getServerAuthSession } from "../lib/auth-options";
+import { getServerAuthSession } from "~/server/auth";
 
 export async function ProtectedRoute({
   children,

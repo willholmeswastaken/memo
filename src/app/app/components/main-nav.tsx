@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { getServerAuthSession } from "../lib/auth-options";
+import { getServerAuthSession } from "~/server/auth";
 
 export async function MainNav({
   className,

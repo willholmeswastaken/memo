@@ -10,7 +10,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { getServerAuthSession } from "../lib/auth-options";
+import { getServerAuthSession } from "~/server/auth";
 import { SignOut } from "@/components/sign-out";
 
 export async function UserNav() {
