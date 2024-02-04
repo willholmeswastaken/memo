@@ -1,14 +1,13 @@
 import Link from "next/link";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { cn } from "@/lib/utils";
+import { getServerAuthSession } from "../lib/auth-options";
 
 export async function MainNav({
   className,
   ...props
 }: React.HTMLAttributes<HTMLElement>) {
-  const { isAuthenticated } = getKindeServerSession();
-  const isUserAuthenticated = await isAuthenticated();
-  const navLinks = isUserAuthenticated
+  const session = await getServerAuthSession();
+  const navLinks = session
     ? [
         {
           label: "Dashboard",

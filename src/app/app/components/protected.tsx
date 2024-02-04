@@ -1,16 +1,16 @@
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import React from "react";
+import { getServerAuthSession } from "../lib/auth-options";
 
 export async function ProtectedRoute({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { isAuthenticated } = getKindeServerSession();
+  const session = await getServerAuthSession();
 
-  if (!(await isAuthenticated())) {
-    redirect("/api/auth/login");
+  if (!session) {
+    redirect("/api/auth/signin");
     return <>Please login</>;
   }
 

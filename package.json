@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@faker-js/faker": "^8.3.1",
-    "@kinde-oss/kinde-auth-nextjs": "^2.1.0",
     "@neondatabase/serverless": "^0.7.2",
     "@planetscale/database": "^1.11.0",
     "@radix-ui/react-alert-dialog": "^1.0.5",
@@ -40,6 +39,7 @@
     "drizzle-orm": "^0.28.5",
     "inngest": "^3.7.4",
     "next": "^14.0.3",
+    "next-auth": "^4.24.5",
     "novel": "^0.1.22",
     "postgres": "^3.4.3",
     "react": "18.2.0",

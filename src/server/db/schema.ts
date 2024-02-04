@@ -18,17 +18,19 @@ import {
  */
 export const pgTable = pgTableCreator((name) => `memo_${name}`);
 
-export const posts = pgTable(
-  "post",
+export const memos = pgTable(
+  "memo",
   {
     id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }),
+    title: varchar("title"),
+    content: varchar("content"),
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
     updatedAt: timestamp("updatedAt"),
+    createdBy: varchar("createdBy"),
   },
-  (example) => ({
-    nameIndex: index("name_idx").on(example.name),
+  (memo) => ({
+    createdByIndex: index("createdBy").on(memo.title),
   }),
 );
