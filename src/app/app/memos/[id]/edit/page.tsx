@@ -1,5 +1,3 @@
-"use client";
-
 import { Editor } from "novel";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -20,8 +18,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useToast } from "@/components/ui/use-toast";
-import { Pencil1Icon, Pencil2Icon } from "@radix-ui/react-icons";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -33,29 +29,44 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { getServerAuthSession } from "~/server/auth";
+import { db } from "~/server/db";
+import { eq, and } from "drizzle-orm";
+import { memos } from "~/server/db/schema";
+import { SaveChanges } from "./save-changes";
 
 // export const metadata: Metadata = {
 //   title: "Dashboard",
 //   description: "Example dashboard app built using the components.",
 // };
 
-export default function NewMemoPage() {
-  const { toast } = useToast();
+async function getMemo(memoId: number) {
+  const session = await getServerAuthSession();
+  if (!session) {
+    return null;
+  }
+  const memo = await db.query.memos.findFirst({
+    where: (memo) =>
+      and(eq(memo.createdBy, session.user.id), eq(memo.id, memoId)),
+  });
+  return memo;
+}
+
+export default async function NewMemoPage({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const memo = await getMemo(parseInt(params.id));
   return (
     <>
       <div className="flex-col md:flex">
         <div className="flex-1 space-y-4 p-8 pt-6">
-          <div className="flex items-center space-x-2 space-y-1">
+          <div className="flex items-center justify-center space-x-2 space-y-1">
             <h2 className="text-3xl font-bold tracking-tight">New Memo</h2>
-            <Button variant="ghost">
-              <Pencil2Icon className="h-5 w-5" />
-            </Button>
           </div>
-          <Tabs
-            defaultValue="content"
-            className="justify-items-center space-y-4"
-          >
-            <TabsList>
+          <Tabs defaultValue="content" className="flex flex-col space-y-4">
+            <TabsList className="self-center">
               <TabsTrigger value="content" defaultChecked>
                 Content
               </TabsTrigger>
@@ -63,7 +74,11 @@ export default function NewMemoPage() {
             </TabsList>
             <TabsContent value="content">
               <div className="flex flex-col">
-                <Editor className="relative mb-6 min-h-[500px] w-full max-w-full rounded-lg border border-stone-200 bg-white shadow-md" />
+                <Editor
+                  disableLocalStorage
+                  defaultValue={memo?.content ?? ""}
+                  className="relative mb-6 min-h-[500px] w-full max-w-full rounded-lg border border-stone-200 bg-white shadow-md"
+                />
                 <div className="flex w-full flex-1 flex-grow gap-x-2">
                   <div className="flex flex-1 justify-start">
                     <AlertDialog>
@@ -88,17 +103,7 @@ export default function NewMemoPage() {
                     </AlertDialog>
                   </div>
                   <div className="flex flex-row justify-end gap-x-2">
-                    <Button
-                      variant="outline"
-                      onClick={() =>
-                        toast({
-                          title: "Saved Changes!",
-                          description: "Your memo has been saved as a draft.",
-                        })
-                      }
-                    >
-                      Save Changes
-                    </Button>
+                    <SaveChanges />
                     <Button>Publish</Button>
                   </div>
                 </div>
