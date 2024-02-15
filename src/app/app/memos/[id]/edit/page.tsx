@@ -34,6 +34,7 @@ import { db } from "~/server/db";
 import { eq, and } from "drizzle-orm";
 import { memos } from "~/server/db/schema";
 import { SaveChanges } from "./save-changes";
+import { ContentTab } from "./content-tab";
 
 // export const metadata: Metadata = {
 //   title: "Dashboard",
@@ -63,7 +64,7 @@ export default async function NewMemoPage({
       <div className="flex-col md:flex">
         <div className="flex-1 space-y-4 p-8 pt-6">
           <div className="flex items-center justify-center space-x-2 space-y-1">
-            <h2 className="text-3xl font-bold tracking-tight">New Memo</h2>
+            <h2 className="text-3xl font-bold tracking-tight">{memo?.title}</h2>
           </div>
           <Tabs defaultValue="content" className="flex flex-col space-y-4">
             <TabsList className="self-center">
@@ -72,43 +73,7 @@ export default async function NewMemoPage({
               </TabsTrigger>
               <TabsTrigger value="reviewers">Reviewers</TabsTrigger>
             </TabsList>
-            <TabsContent value="content">
-              <div className="flex flex-col">
-                <Editor
-                  disableLocalStorage
-                  defaultValue={memo?.content ?? ""}
-                  className="relative mb-6 min-h-[500px] w-full max-w-full rounded-lg border border-stone-200 bg-white shadow-md"
-                />
-                <div className="flex w-full flex-1 flex-grow gap-x-2">
-                  <div className="flex flex-1 justify-start">
-                    <AlertDialog>
-                      <AlertDialogTrigger asChild>
-                        <Button variant="destructive">Abandon</Button>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>
-                            Are you absolutely sure?
-                          </AlertDialogTitle>
-                          <AlertDialogDescription>
-                            This action cannot be undone and will permanently
-                            delete this memo.
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>Cancel</AlertDialogCancel>
-                          <AlertDialogAction>Continue</AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
-                  </div>
-                  <div className="flex flex-row justify-end gap-x-2">
-                    <SaveChanges />
-                    <Button>Publish</Button>
-                  </div>
-                </div>
-              </div>
-            </TabsContent>
+            <ContentTab id={memo!.id} defaultContent={memo?.content ?? ""} />
             <TabsContent value="reviewers">
               <Card>
                 <CardHeader>
